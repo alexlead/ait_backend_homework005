@@ -19,7 +19,7 @@ public class CatService {
         return repository.getAll();
     }
 
-    public Cat getById (int id) {
+    public Cat getById(int id) {
         return repository.getById(id);
     }
 }

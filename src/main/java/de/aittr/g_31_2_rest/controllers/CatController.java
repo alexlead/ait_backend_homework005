@@ -17,12 +17,12 @@ public class CatController {
     }
 
     @GetMapping
-    public List<Cat> getAll () {
+    public List<Cat> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Cat getById (@PathVariable int id) {
+    public Cat getById(@PathVariable int id) {
 
         return service.getById(id);
     }

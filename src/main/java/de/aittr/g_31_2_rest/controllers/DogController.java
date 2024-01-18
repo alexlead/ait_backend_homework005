@@ -21,12 +21,12 @@ public class DogController {
     }
 
     @GetMapping
-    public List<Dog> getAll () {
+    public List<Dog> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Dog getById (@PathVariable int id) {
+    public Dog getById(@PathVariable int id) {
         return service.getById(id);
     }
 }

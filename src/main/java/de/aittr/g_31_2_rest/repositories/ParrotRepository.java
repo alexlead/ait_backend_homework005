@@ -41,13 +41,12 @@ public class ParrotRepository implements CrudRepository<Parrot> {
 
             String query = String.format(Locale.ROOT, "INSERT INTO parrot (color, weight) VALUES ('%s', %.3f)", parrot.getColor(), parrot.getWeight());
             Statement statement = connection.createStatement();
-            int resultSet = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS );
+            int resultSet = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 
-                parrot.setId(resultSet);
+            parrot.setId(resultSet);
 
             ResultSet keys = statement.getGeneratedKeys();
-            if(keys.next()) {
-//                System.out.println(keys.getBigDecimal(1));
+            if (keys.next()) {
                 parrot.setId(keys.getInt(1));
             }
             return parrot;

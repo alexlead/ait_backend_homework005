@@ -15,11 +15,11 @@ public class DogService {
         this.repository = repository;
     }
 
-    public List<Dog> getAll () {
+    public List<Dog> getAll() {
         return repository.getAll();
     }
 
-    public Dog getById (int id) {
+    public Dog getById(int id) {
         return repository.getById(id);
     }
 }

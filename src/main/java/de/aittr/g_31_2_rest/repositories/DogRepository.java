@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class DogRepository implements CrudRepository<Dog>{
+public class DogRepository implements CrudRepository<Dog> {
 
     private Map<Integer, Dog> dogs = new HashMap<>();
     private int currentId;
 
     public DogRepository() {
-        save(new Dog( "Ressi", "Irish setter", 2 ));
-        save(new Dog( "Rex", "German shepherd", 3 ));
-        save(new Dog( "Pearl", "Bishon frise", 1 ));
-        save(new Dog( "Pippa", "Pekingese", 5 ));
-        save(new Dog( "Sunny", "Golden retriever", 4 ));
+        save(new Dog("Ressi", "Irish setter", 2));
+        save(new Dog("Rex", "German shepherd", 3));
+        save(new Dog("Pearl", "Bishon frise", 1));
+        save(new Dog("Pippa", "Pekingese", 5));
+        save(new Dog("Sunny", "Golden retriever", 4));
     }
 
     @Override
