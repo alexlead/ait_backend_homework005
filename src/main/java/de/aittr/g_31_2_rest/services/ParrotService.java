@@ -26,7 +26,10 @@ public class ParrotService {
     }
 
     public Parrot save (Parrot parrot) {
-
+        if (parrot.getId() > 0) {
+            repository.update(parrot);
+            return parrot;
+        }
         return repository.save(parrot);
     }
 

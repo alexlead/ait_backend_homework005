@@ -98,7 +98,14 @@ public class ParrotRepository implements CrudRepository<Parrot> {
     }
 
     @Override
-    public void update(Parrot obj) {
+    public void update(Parrot parrot) {
+
+        try (Connection connection = getConnection()) {
+            String query = String.format(Locale.ROOT,"UPDATE parrot SET color = '%s', weight = %.3f WHERE id = %d", parrot.getColor(), parrot.getWeight(),parrot.getId());
+            connection.createStatement().execute(query);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
 
     }
 
@@ -107,7 +114,7 @@ public class ParrotRepository implements CrudRepository<Parrot> {
 // TODO
     try (Connection connection = getConnection()) {
         String query = String.format("DELETE FROM parrot WHERE id = %d", id);
-        boolean resultSet = connection.createStatement().execute(query);
+        connection.createStatement().execute(query);
 
     } catch (Exception e ) {
         throw new RuntimeException();
