@@ -17,15 +17,15 @@ public class ParrotService {
         this.repository = repository;
     }
 
-    public List<Parrot> getAll () {
+    public List<Parrot> getAll() {
         return repository.getAll();
     }
 
-    public Parrot getById (int id) {
+    public Parrot getById(int id) {
         return repository.getById(id);
     }
 
-    public Parrot save (Parrot parrot) {
+    public Parrot save(Parrot parrot) {
         if (parrot.getId() > 0) {
             repository.update(parrot);
             return parrot;
@@ -33,7 +33,7 @@ public class ParrotService {
         return repository.save(parrot);
     }
 
-    public void deleteById (int id) {
+    public void deleteById(int id) {
         repository.deleteById(id);
     }
 }

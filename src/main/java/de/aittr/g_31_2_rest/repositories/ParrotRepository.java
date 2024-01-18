@@ -37,11 +37,19 @@ public class ParrotRepository implements CrudRepository<Parrot> {
     public Parrot save(Parrot parrot) {
 
 
-        try(Connection connection = getConnection()) {
+        try (Connection connection = getConnection()) {
 
-            String query = String.format(Locale.ROOT,"INSERT INTO parrot (color, weight) VALUES ('%s', %.3f)", parrot.getColor(), parrot.getWeight());
-            boolean resultSet = connection.createStatement().execute(query);
+            String query = String.format(Locale.ROOT, "INSERT INTO parrot (color, weight) VALUES ('%s', %.3f)", parrot.getColor(), parrot.getWeight());
+            Statement statement = connection.createStatement();
+            int resultSet = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS );
 
+                parrot.setId(resultSet);
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if(keys.next()) {
+//                System.out.println(keys.getBigDecimal(1));
+                parrot.setId(keys.getInt(1));
+            }
             return parrot;
 
         } catch (Exception e) {
@@ -85,12 +93,14 @@ public class ParrotRepository implements CrudRepository<Parrot> {
 
             ResultSet resultSet = connection.createStatement().executeQuery(query);
 
-            resultSet.next();
-
+            if (resultSet.next()) {
                 String color = resultSet.getString("color");  // Get by Column name
                 double weight = resultSet.getDouble("weight");  // Get by Column name
-                Parrot parrot = new Parrot( id, color, weight);
-            return parrot;
+                Parrot parrot = new Parrot(id, color, weight);
+                return parrot;
+            }
+
+            return null;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -101,7 +111,7 @@ public class ParrotRepository implements CrudRepository<Parrot> {
     public void update(Parrot parrot) {
 
         try (Connection connection = getConnection()) {
-            String query = String.format(Locale.ROOT,"UPDATE parrot SET color = '%s', weight = %.3f WHERE id = %d", parrot.getColor(), parrot.getWeight(),parrot.getId());
+            String query = String.format(Locale.ROOT, "UPDATE parrot SET color = '%s', weight = %.3f WHERE id = %d", parrot.getColor(), parrot.getWeight(), parrot.getId());
             connection.createStatement().execute(query);
         } catch (Exception e) {
             throw new RuntimeException();
@@ -112,12 +122,12 @@ public class ParrotRepository implements CrudRepository<Parrot> {
     @Override
     public void deleteById(int id) {
 // TODO
-    try (Connection connection = getConnection()) {
-        String query = String.format("DELETE FROM parrot WHERE id = %d", id);
-        connection.createStatement().execute(query);
+        try (Connection connection = getConnection()) {
+            String query = String.format("DELETE FROM parrot WHERE id = %d", id);
+            connection.createStatement().execute(query);
 
-    } catch (Exception e ) {
-        throw new RuntimeException();
-    }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }

@@ -22,13 +22,13 @@ public class ParrotController {
     }
 
     @GetMapping("/{id}")
-    public Parrot getById (@PathVariable int id) {
+    public Parrot getById(@PathVariable int id) {
 
         return service.getById(id);
     }
 
     @PostMapping
-    public Parrot save (@RequestBody Parrot parrot ) {
+    public Parrot save(@RequestBody Parrot parrot) {
 
         return service.save(parrot);
     }
